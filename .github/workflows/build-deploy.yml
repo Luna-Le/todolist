@@ -14,7 +14,7 @@ jobs:
       DATABASE_HOSTNAME: localhost
       DATABASE_PORT: 5434
       DATABASE_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
-      DATABASE_NAME: ${{ secrets.TEST_DB_NAME }}_test
+      DATABASE_NAME: ${{ secrets.TEST_DB_NAME }}
       DATABASE_USERNAME: ${{ secrets.TEST_DB_USER }}
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       ALGORITHM: HS256
@@ -51,7 +51,7 @@ jobs:
               environment:
                 - POSTGRES_USER=${{ secrets.TEST_DB_USER }}
                 - POSTGRES_PASSWORD=${{ secrets.TEST_DB_PASSWORD }}
-                - POSTGRES_DB=${{ secrets.TEST_DB_NAME }}
+                - POSTGRES_DB=${{ secrets.TEST_DB_NAME }}_test
               healthcheck:
                 test: ["CMD-SHELL", "pg_isready -U postgres"]
                 interval: 5s
