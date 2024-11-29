@@ -44,9 +44,9 @@ jobs:
               env_file:
                 - .env.test   
               environment:
-                - POSTGRES_USER=\${secrets.TEST_DB_USER}
-                - POSTGRES_PASSWORD=\${secrets.TEST_DB_PASSWORD}
-                - POSTGRES_DB=\${secrets.TEST_DB_NAME }_test
+                - POSTGRES_USER=\${{ secrets.TEST_DB_USER }}
+                - POSTGRES_PASSWORD=\${{ secrets.TEST_DB_PASSWORD }}
+                - POSTGRES_DB=\${{ secrets.TEST_DB_NAME }}_test
               healthcheck:
                 test: ["CMD-SHELL", "pg_isready -U postgres"]
                 interval: 5s
