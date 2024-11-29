@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 from typing import Optional
 
 
@@ -12,27 +12,24 @@ class UserOut(BaseModel):
     email: EmailStr
     created_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True) 
 
 class Category(BaseModel):
     name: str
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True) 
 
 class Task(BaseModel):
     name: str
     completed: bool = False
     category: str
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True) 
 
 class TaskOut(BaseModel):
+    id: int
     name: str
     completed: bool
     category: Category
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True) 
 
 class Token(BaseModel):
     access_token: str
