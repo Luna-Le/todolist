@@ -37,6 +37,17 @@ jobs:
         run: |
           cat << EOF > docker-compose.test.yml
           services:
+            app:
+              build: 
+                context: .
+                dockerfile: Dockerfile
+              depends_on:
+                test_db:
+                  condition: service_healthy
+              env_file:
+                - .env.test
+              command: pytest
+
             test_db:
               image: postgres:15
               ports:
@@ -55,7 +66,7 @@ jobs:
           EOF
 
       - name: Build and run tests
-        run: docker compose -f docker-compose.test.yml up --build --abort-on-container-exit
+        run: docker compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from app
         
       - name: Cleanup
         if: always()
