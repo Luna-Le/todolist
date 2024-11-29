@@ -9,9 +9,11 @@ venv/
 # Environment variables
 .env
 .env.*
+.env.test
 
 # Docker
 docker-compose.test.yml
+docker-compose.yml
 
 # IDE specific files
 .idea/
