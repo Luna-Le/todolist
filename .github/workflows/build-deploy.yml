@@ -1,12 +1,41 @@
 name: Build and Deploy Code
 
-on: [push, pull_request]
+on: 
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
 
 jobs:
-  jobs1:
+  test:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: pulling git repo
+      - name: Checkout repository
         uses: actions/checkout@v3
-      - name: say hi to Luna
-        run: echo "Hello, Luna!"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Create env file
+        run: |
+          cat << EOF > .env.test
+          DB_USER=${{ secrets.TEST_DB_USER }}
+          DB_PASSWORD=${{ secrets.TEST_DB_PASSWORD }}
+          DB_NAME=${{ secrets.TEST_DB_NAME }}
+          EOF
+
+      - name: Build and run tests
+        run: docker compose -f docker-compose.test.yml up --build --abort-on-container-exit
+        
+      - name: Cleanup
+        if: always()
+        run: docker compose -f docker-compose.test.yml down -v
