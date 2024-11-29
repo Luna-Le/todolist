@@ -8,15 +8,17 @@ on:
 
 jobs:
   test:
+    environment:
+      name: Testing
     env:
-      DATABASE_HOSTNAME=localhost
-      DATABASE_PORT=5434
-      DATABASE_PASSWORD=${{ secrets.TEST_DB_PASSWORD }}
-      DATABASE_NAME=${{ secrets.TEST_DB_NAME }}_test
-      DATABASE_USERNAME=${{ secrets.TEST_DB_USER }}
-      SECRET_KEY=${{ secrets.SECRET_KEY }}
-      ALGORITHM=HS256
-      ACCESS_TOKEN_EXPIRE_MINUTES=30
+      DATABASE_HOSTNAME: localhost
+      DATABASE_PORT: 5434
+      DATABASE_PASSWORD: ${{ secrets.TEST_DB_PASSWORD }}
+      DATABASE_NAME: ${{ secrets.TEST_DB_NAME }}_test
+      DATABASE_USERNAME: ${{ secrets.TEST_DB_USER }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
     runs-on: ubuntu-latest
     
     steps:
