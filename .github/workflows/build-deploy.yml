@@ -30,14 +30,6 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Create env file
-        run: |
-          cat << EOF > backend/.env.test
-          DB_USER=${{ secrets.TEST_DB_USER }}
-          DB_PASSWORD=${{ secrets.TEST_DB_PASSWORD }}
-          DB_NAME=${{ secrets.TEST_DB_NAME }}
-          EOF
-
       - name: Create docker-compose.test.yml
         run: |
           cat << EOF > docker-compose.test.yml
@@ -46,12 +38,10 @@ jobs:
               image: postgres:15
               ports:
                 - "5434:5432"
-              env_file:
-                - backend/.env.test
               environment:
-                - POSTGRES_USER=${{ secrets.TEST_DB_USER }}
-                - POSTGRES_PASSWORD=${{ secrets.TEST_DB_PASSWORD }}
-                - POSTGRES_DB=${{ secrets.TEST_DB_NAME }}_test
+                - POSTGRES_USER=${DATABASE_USERNAME}
+                - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+                - POSTGRES_DB=${DATABASE_NAME}_test
               healthcheck:
                 test: ["CMD-SHELL", "pg_isready -U postgres"]
                 interval: 5s

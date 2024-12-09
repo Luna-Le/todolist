@@ -1,4 +1,9 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+import os
+from pathlib import Path
+
+# Get the path to the backend directory
+BACKEND_DIR = Path(__file__).resolve().parent.parent
 
 class Settings(BaseSettings):
     database_hostname: str
@@ -10,10 +15,9 @@ class Settings(BaseSettings):
     algorithm: str
     access_token_expire_minutes: int
 
-    postgres_user: str
-    postgres_password: str
-    postgres_db: str
-    
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(
+        env_file=str(BACKEND_DIR / ".env"),  # Use absolute path
+        env_file_encoding='utf-8'
+    )
 
 settings = Settings()
