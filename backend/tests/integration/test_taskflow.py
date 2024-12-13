@@ -8,7 +8,6 @@ def test_complete_task_flow(authorized_client, test_user):
         json={
             "name": "Integration Test Task",
             "completed": "false",
-            "category": "Test Category"
         }
     )
     assert create_response.status_code == 201

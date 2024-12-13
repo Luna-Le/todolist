@@ -14,21 +14,17 @@ class UserOut(BaseModel):
 
     model_config = ConfigDict(from_attributes=True) 
 
-class Category(BaseModel):
-    name: str
-    model_config = ConfigDict(from_attributes=True) 
+
 
 class Task(BaseModel):
     name: str
     completed: bool = False
-    category: str
     model_config = ConfigDict(from_attributes=True) 
 
 class TaskOut(BaseModel):
     id: int
     name: str
     completed: bool
-    category: Category
     model_config = ConfigDict(from_attributes=True) 
 
 class Token(BaseModel):

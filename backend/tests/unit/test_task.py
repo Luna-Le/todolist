@@ -1,5 +1,5 @@
 import pytest
-from app.models import Task, Category, User
+from app.models import Task, User
 
 
 @pytest.fixture
@@ -14,34 +14,32 @@ def test_user2(session):
 
 @pytest.fixture
 def test_task(session, test_user):  # Add test_user dependency
-    new_category = Category(name="Test Category")
-    session.add(new_category)
-    session.flush()
+ 
 
-    task = Task(owner_id=test_user.id, name="Test Task", completed=False, category=new_category)
+
+    task = Task(owner_id=test_user.id, name="Test Task", completed=False)
     session.add(task)
     session.commit()
     return task
 
 @pytest.fixture
 def test_task2(session, test_user2):  # Add test_user2 dependency
-    new_category = Category(name="Test Category2")
-    session.add(new_category)
-    session.flush()
 
-    task = Task(owner_id=test_user2.id, name="Test Task2", completed=False, category=new_category)
+  
+
+    task = Task(owner_id=test_user2.id, name="Test Task2", completed=False)
     session.add(task)
     session.commit()
     return task
 
 @pytest.mark.task
 def test_create_task(session, test_user, authorized_client):
-    response = authorized_client.post("/tasks", json={"name": "Test Task3", "completed": "false", "category": "Test Category3"})
+    response = authorized_client.post("/tasks", json={"name": "Test Task3", "completed": "false"})
    
     assert response.status_code == 201
     assert response.json()["name"] == "Test Task3"
     assert response.json()["completed"] == False
-    assert response.json()["category"]["name"] == "Test Category3"
+  
 
 
 
@@ -95,7 +93,7 @@ def test_get_tasks(authorized_client, test_task ):
 
 @pytest.mark.task
 def test_update_task(authorized_client, test_task):
-    response = authorized_client.put(f"/tasks/{test_task.id}", json={"name": "Updated Task", "completed": "true", "category": "Test Update"})
+    response = authorized_client.put(f"/tasks/{test_task.id}", json={"name": "Updated Task", "completed": "true"})
 
 
     assert response.status_code == 200

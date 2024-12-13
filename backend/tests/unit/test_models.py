@@ -1,4 +1,4 @@
-from app.models import User, Task, Category
+from app.models import User, Task
 
 def test_user_model():
     user = User(email="test@test.com", password="password")
@@ -7,19 +7,16 @@ def test_user_model():
 
 def test_task_model(): 
    
-    category = Category(name="test")
+   
 
     task = Task(
         name="test", 
         completed=False, 
-        category=category,  
         owner_id=1  
     )
     
     assert task.name == "test"
     assert task.completed == False
-    assert task.category.name == "test"
 
-def test_category_model():
-    category = Category(name="work")
-    assert category.name == "work"
+
+
