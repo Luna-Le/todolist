@@ -1,6 +1,6 @@
-# To-Do List App
+# To-Do List Web App
 
-This is a To-Do List app that helps users keep track of tasks they need to complete. Users can see, add, edit, and delete tasks. The backend is developed using FastAPI and deployed on Docker, while the database is PostgreSQL. The frontend is developed using React, but it has not been deployed due to financial constraints.
+This is a To-Do List web app that helps users keep track of tasks they need to complete. Users can see, add, edit, and delete tasks. The backend is developed using FastAPI and deployed on Docker, while the database is PostgreSQL. The frontend is developed using React, but it has not been deployed due to financial constraints.
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
