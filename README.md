@@ -69,32 +69,34 @@ This is a To-Do List app that helps users keep track of tasks they need to compl
       npm run dev
       ```
 
+
 ## Demo
 1. Upon opening the website, you will be asked to log in or register.
    - Click on "Register" if you have not created an account.
-      ![alt text](image.png)
+      ![Register](images/image.png)
    - After creating an account, you will be redirected to the login page to login.
-      ![alt text](image-1.png)
+      ![Login](images/image-1.png)
 
 2. Once logged in, you will be on the home page where you can:
    - Add a task by typing in the task and clicking the "Add" button.
-      ![alt text](image-2.png)
+      ![Add Task](images/image-2.png)
    
    - Delete a task by clicking the "Delete" button.
-      ![alt text](image-3.png)
+      ![Delete Task](images/image-3.png)
    
    - Edit a task by clicking the "Edit" button, making your changes, and clicking "OK" to update it.
-      ![alt text](image-4.png)
+      ![Edit Task](images/image-4.png)
 
-      ![alt text](image-5.png)
+      ![Edit Task Confirmation](images/image-5.png)
    
    - Mark a task as done by clicking the checkbox, which will move it to the completed tasks.
-      ![alt text](image-6.png)
+      ![Mark Task Done](images/image-6.png)
 
-      ![alt text](image-7.png)
+      ![Completed Tasks](images/image-7.png)
 
 3. To log out, click on the "Log Out" link in the navigation bar.
-      ![alt text](image-8.png)
+      ![Log Out](images/image-8.png)
+
 
 ## Running Tests
 1. Stay in the main directory.
