@@ -167,3 +167,11 @@ This is a To-Do List web app that helps users keep track of tasks they need to c
    ```bash
    docker-compose --env-file backend/.env up --build -d
    ```
+
+
+   # TODO
+   - [ ] Work on the Docker Compose to wire up frontend and backend and DB, make sure only Frontend is exposed, also it is configurable so in debug mode it can expose backend and db
+   - [ ] Add coverage reporting, and code quality tool like Pylint, try to maintain both coverage and quality > certain threshold
+   - [ ] Deploy and expose to EC2
+   - [ ] Expose to public, add SSL
+   - [ ] Organize project on Github Project in Kanban
