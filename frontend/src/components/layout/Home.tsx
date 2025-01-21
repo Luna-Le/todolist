@@ -171,6 +171,11 @@ function Home() {
 
     return (
         <div className="home-container">
+            {message.text && (
+                <div className={`message ${message.type}`}>
+                    {message.text}
+                </div>
+            )}
             <div className="navbar">
                 <img src={logo} alt="logo" className="logo" />
                 <a href="/home"><h3>Home</h3></a>

@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     secret_key: str
     algorithm: str
     access_token_expire_minutes: int
+    debug_mode: bool
 
     model_config = SettingsConfigDict(
         env_file=str(BACKEND_DIR / ".env"),  # Use absolute path
