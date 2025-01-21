@@ -1,6 +1,6 @@
-# To-Do List App
+# To-Do List Web App
 
-This is a To-Do List app that helps users keep track of tasks they need to complete. Users can see, add, edit, and delete tasks. The backend is developed using FastAPI and deployed on Docker, while the database is PostgreSQL. The frontend is developed using React, but it has not been deployed due to financial constraints.
+This is a To-Do List web app that helps users keep track of tasks they need to complete. Users can see, add, edit, and delete tasks. The backend is developed using FastAPI and deployed on Docker, while the database is PostgreSQL. The frontend is developed using React, but it has not been deployed due to financial constraints.
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
@@ -167,10 +167,3 @@ This is a To-Do List app that helps users keep track of tasks they need to compl
    ```bash
    docker-compose --env-file backend/.env up --build -d
    ```
-
-   # TODO
-   - [ ] Work on the Docker Compose to wire up frontend and backend and DB, make sure only Frontend is exposed, also it is configurable so in debug mode it can expose backend and db
-   - [ ] Add coverage reporting, and code quality tool like Pylint, try to maintain both coverage and quality > certain threshold
-   - [ ] Deploy and expose to EC2
-   - [ ] Expose to public, add SSL
-   - [ ] Organize project on Github Project in Kanban
