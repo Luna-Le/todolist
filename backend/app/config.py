@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     debug_mode: bool
 
     model_config = SettingsConfigDict(
-        env_file=str(BACKEND_DIR / ".env"),  # Use absolute path
+        env_file=str(BACKEND_DIR / ".env"),  
         env_file_encoding='utf-8'
     )
 
