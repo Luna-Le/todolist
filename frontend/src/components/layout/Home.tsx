@@ -35,7 +35,7 @@ function Home() {
         }
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:8000/tasks/', {
+            const response = await fetch('https://44.202.132.203:8000/tasks/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ function Home() {
     const handleDelete = async (id: number) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:8000/tasks/${id}`, {
+            const response = await fetch(`https://44.202.132.203:8000/tasks/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ function Home() {
     const handleUpdate = async (id: number) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:8000/tasks/${id}`, {
+            const response = await fetch(`https://44.202.132.203:8000/tasks/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ function Home() {
         if (completedTask) {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch(`http://localhost:8000/tasks/${id}`, {
+                const response = await fetch(`https://44.202.132.203:8000/tasks/${id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -143,7 +143,7 @@ function Home() {
         const fetchTasks = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:8000/tasks/',{
+                const response = await fetch('https://44.202.132.203:8000/tasks/',{
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

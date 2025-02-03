@@ -32,7 +32,7 @@ function Login() {
       formDataInstance.append('username', formData.email);
       formDataInstance.append('password', formData.password);
 
-      const response = await fetch('http://localhost:8000/login', {
+      const response = await fetch('https://44.202.132.203:8000/login', {
         method: 'POST',
         body: formDataInstance,
       });
