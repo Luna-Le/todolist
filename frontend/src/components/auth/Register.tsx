@@ -20,7 +20,7 @@ function Register() {
     e.preventDefault();
     
     try {
-        const response = await fetch('https://44.202.132.203:8000/users/', { 
+        const response = await fetch('https://todolistnow.com/users/', { 
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
