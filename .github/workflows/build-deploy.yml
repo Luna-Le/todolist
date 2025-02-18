@@ -132,9 +132,9 @@ jobs:
               postgres:
                 image: postgres:15
                 environment:
-                  POSTGRES_USER: ${secrets.DATABASE_USERNAME}
-                  POSTGRES_PASSWORD: ${secrets.DATABASE_PASSWORD}
-                  POSTGRES_DB: ${secrets.DATABASE_NAME}
+                  POSTGRES_USER:${{secrets.DATABASE_USERNAME}}
+                  POSTGRES_PASSWORD:${{secrets.DATABASE_PASSWORD}}
+                  POSTGRES_DB:${{secrets.DATABASE_NAME}}
                 ports:
                   - "${DEBUG_MODE:+5433:5432}" 
                 volumes:
