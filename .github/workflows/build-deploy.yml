@@ -87,6 +87,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: List files in todolist directory
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            ls -la /home/ec2-user/todolist
+
       - name: SSH to EC2 and deploy
         uses: appleboy/scp-action@master
         with:
@@ -94,7 +104,7 @@ jobs:
           username: ec2-user  
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          source: "todolist/*"
+          source: "./*"
           target: "/home/ec2-user/todolist" 
 
       - name: SSH to EC2 and run Docker
@@ -108,5 +118,7 @@ jobs:
             cd /home/ec2-user/todolist
             docker-compose --env-file backend/.env down
             docker-compose --env-file backend/.env up --build -d
+
+
 
 
