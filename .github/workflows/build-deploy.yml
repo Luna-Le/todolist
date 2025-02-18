@@ -87,10 +87,92 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
-      - name: Build and push
-        uses: docker/build-push-action@v4
+      - name: SSH to EC2 and delete old project directory
+        uses: appleboy/ssh-action@master
         with:
-          context: ./backend
-          file: ./backend/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/todolist:latest
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user  
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            cd /home/ec2-user/todolist
+            docker-compose --env-file backend/.env down
+            rm -rf /home/ec2-user/todolist  
+
+      - name: SSH to EC2 and create docker-compose.yml
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            cat << EOF > /home/ec2-user/todolist/docker-compose.yml
+            services:
+              frontend:
+                build:
+                  context: ./frontend
+                ports:
+                  - "3000:80"
+                depends_on:
+                  - api
+                environment:
+                  - NODE_ENV=production
+
+              api:
+                build:
+                  context: ./backend
+                ports:
+                  - "${DEBUG_MODE:+8000:80}"  
+                env_file:
+                  - backend/.env
+                depends_on:
+                  - postgres
+
+              postgres:
+                image: postgres:15
+                environment:
+                  POSTGRES_USER: ${secrets.DATABASE_USERNAME}
+                  POSTGRES_PASSWORD: ${secrets.DATABASE_PASSWORD}
+                  POSTGRES_DB: ${secrets.DATABASE_NAME}
+                ports:
+                  - "${DEBUG_MODE:+5433:5432}" 
+                volumes:
+                  - postgres-db:/var/lib/postgresql/data
+              
+              volumes:
+                  postgres-db:
+            EOF
+
+      - name: Create .env file on EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            cat << EOF > /home/ec2-user/todolist/backend/.env
+            DATABASE_HOSTNAME=${{ secrets.DATABASE_HOSTNAME }}
+            DATABASE_PORT=${{ secrets.DATABASE_PORT }}
+            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
+            DATABASE_NAME=${{ secrets.DATABASE_NAME }}
+            DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}
+            SECRET_KEY=${{ secrets.SECRET_KEY }}
+            ALGORITHM=${{ secrets.ALGORITHM }}
+            ACCESS_TOKEN_EXPIRE_MINUTES=60
+            DEBUG_MODE=False
+            EOF
+
+      - name: SSH to EC2 and run Docker
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            cd /home/ec2-user/todolist
+            docker-compose --env-file backend/.env up --build -d
+
+

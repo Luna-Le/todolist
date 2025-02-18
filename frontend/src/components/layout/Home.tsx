@@ -178,8 +178,8 @@ function Home() {
             )}
             <div className="navbar">
                 <img src={logo} alt="logo" className="logo" />
-                <a href="/home"><h3>Home</h3></a>
-                <a href="/account"><h3>Account</h3></a>
+                <a href="#" onClick={() => navigate('/home')}><h3>Home</h3></a>
+                <a href="#"><h3>Account</h3></a>
                 <a onClick={handleLogout} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
                     <h3>Logout</h3>
                 </a>
