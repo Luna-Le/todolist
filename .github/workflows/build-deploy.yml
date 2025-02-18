@@ -87,7 +87,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
-      - name: SSH to EC2 and delete old project directory
+      - name: SSH to EC2 and stop old containers
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -97,7 +97,7 @@ jobs:
           script: |
             cd /home/ec2-user/todolist
             docker-compose --env-file backend/.env down
-            rm -rf /home/ec2-user/todolist  
+            
 
       - name: SSH to EC2 and create docker-compose.yml
         uses: appleboy/ssh-action@master
