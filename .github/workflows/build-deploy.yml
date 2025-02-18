@@ -94,7 +94,7 @@ jobs:
           username: ec2-user  
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          source: "docker-compose.yml"
+          source: "todolist/*"
           target: "/home/ec2-user/todolist" 
 
       - name: SSH to EC2 and run Docker
