@@ -161,15 +161,6 @@ jobs:
           port: 22
           script: |
             cd /home/ec2-user/todolist
-             - name: SSH to EC2 and stop old containers if they exist
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ec2-user  
-          key: ${{ secrets.EC2_SSH_KEY }}
-          port: 22
-          script: |
-            cd /home/ec2-user/todolist
             docker-compose --env-file backend/.env down
             docker-compose --env-file backend/.env up --build -d
 
